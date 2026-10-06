@@ -1,0 +1,133 @@
+<section id="services" class="section services">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">What we do</span>
+      <h2 class="section-title">Our <em>Services</em></h2>
+      <p class="section-sub">Tap <strong>Add</strong> on anything you like — your picks gather in the booking cart below, with the total calculated automatically.</p>
+    </div>
+
+    <div class="tabs reveal">
+      @for (t of site.categories; track t.id) {
+        <button [class.active]="tab() === t.id" (click)="tab.set(t.id)">
+          @switch (t.id) {
+            @case ('facial') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg>
+            }
+            @case ('bleach') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.3 6 11a6 6 0 0 1-12 0c0-4.7 6-11 6-11z"/></svg>
+            }
+            @case ('threading') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8.2 7.8L20 19M8.2 16.2L20 5"/></svg>
+            }
+            @case ('waxing') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 13c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 18c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
+            }
+            @case ('henna') {
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 9 13 4 20 4c0 8-5 15-15 15z"/><path d="M5 19c3-5 7-9 11-11"/></svg>
+            }
+          }
+          {{ t.label }}
+        </button>
+      }
+    </div>
+
+    <div class="svc-grid">
+      @for (s of activeCategory().services; track s.name; let i = $index) {
+        <article class="svc reveal" [class.reveal-d1]="i % 3 === 1" [class.reveal-d2]="i % 3 === 2">
+          <div class="svc-img">
+            <img [src]="s.img" [alt]="s.name" loading="lazy">
+          </div>
+          <div class="svc-body">
+            <div class="svc-top">
+              <h3>{{ s.name }}</h3>
+              <span class="price">{{ money(s.price) }}</span>
+            </div>
+            <p>{{ s.desc }}</p>
+            <div class="svc-foot">
+              <span class="dur">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                {{ s.duration }}
+              </span>
+              <button class="add-btn" [class.added]="cart.inCart(s.name)" (click)="toggle(s)">
+                @if (cart.inCart(s.name)) {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                  Added
+                } @else {
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Add
+                }
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+
+    <div class="extras reveal">
+      <span class="extras-label">Also available</span>
+      @for (s of site.extras; track s.name) {
+        <div class="extra">
+          <img [src]="s.img" [alt]="s.name" loading="lazy">
+          <div class="extra-info">
+            <strong>{{ s.name }}</strong>
+            <span>{{ money(s.price) }} · {{ s.duration }}</span>
+          </div>
+          <button class="add-btn small" [class.added]="cart.inCart(s.name)" (click)="toggle(s)">
+            @if (cart.inCart(s.name)) { Added } @else { Add }
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- combo packages -->
+    <div class="center reveal" style="margin-top: 3.5rem;">
+      <span class="eyebrow">Best value</span>
+      <h2 class="section-title">Combo <em>Packages</em></h2>
+      <p class="section-sub">Curated packages at special prices — from everyday glow-ups to the complete bridal transformation.</p>
+    </div>
+
+    <div class="combos">
+      @for (c of site.combos; track c.name; let i = $index) {
+        <article class="combo reveal" [class.reveal-d1]="i === 1">
+          <div class="combo-img">
+            <img [src]="c.img" [alt]="c.name" loading="lazy">
+            <span class="save">Save {{ money(c.mrp - c.price) }}</span>
+          </div>
+          <div class="combo-body">
+            <span class="combo-tag">Combo Package</span>
+            <h3>{{ c.name }}</h3>
+            <p class="combo-sub">{{ c.tagline }}</p>
+            <ul class="includes">
+              @for (inc of c.includes; track inc) {
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                  {{ inc }}
+                </li>
+              }
+            </ul>
+            <div class="combo-foot">
+              <div class="combo-price">
+                <strong>{{ money(c.price) }}</strong>
+                <s>{{ money(c.mrp) }}</s>
+              </div>
+              <button class="btn btn-primary" (click)="addCombo(c)">
+                @if (cart.inCart(c.name + ' (Combo)')) { Added to Cart } @else { Add Package }
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+
+  <!-- floating cart bar -->
+  @if (cart.count() > 0) {
+    <div class="cart-bar">
+      <div class="cart-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h15l-1.5 8.5a1 1 0 0 1-1 .8H8.7a1 1 0 0 1-1-.8L5 4.5A1 1 0 0 0 4 3.7H2"/><circle cx="9.5" cy="20.5" r="1.3"/><circle cx="17" cy="20.5" r="1.3"/></svg>
+        <span><strong>{{ cart.count() }}</strong> selected · <strong>{{ money(cart.total()) }}</strong></span>
+      </div>
+      <button class="btn btn-primary btn-sm" (click)="goBooking()">Review & Book</button>
+    </div>
+  }
+</section>

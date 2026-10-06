@@ -1,0 +1,31 @@
+<section id="gallery" class="section gallery">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">Our work</span>
+      <h2 class="section-title">The <em>Gallery</em></h2>
+      <p class="section-sub">A glimpse of the artistry — tap any photo to view it up close.</p>
+    </div>
+
+    <div class="grid">
+      @for (g of site.gallery; track g.src; let i = $index) {
+        <button class="tile reveal" [class.reveal-d1]="i % 4 === 1" [class.reveal-d2]="i % 4 === 2" [class.reveal-d3]="i % 4 === 3" (click)="open(i)">
+          <img [src]="g.src" [alt]="g.alt" loading="lazy">
+          <span class="cap">{{ g.label }}</span>
+          <span class="zoom">⤢</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (lightbox() !== -1) {
+    <div class="lb" (click)="close()">
+      <button class="lb-x" (click)="close()" aria-label="Close">✕</button>
+      <button class="lb-arrow left" (click)="$event.stopPropagation(); step(-1)" aria-label="Previous">‹</button>
+      <figure (click)="$event.stopPropagation()">
+        <img [src]="site.gallery[lightbox()].src" [alt]="site.gallery[lightbox()].alt">
+        <figcaption>{{ site.gallery[lightbox()].label }}</figcaption>
+      </figure>
+      <button class="lb-arrow right" (click)="$event.stopPropagation(); step(1)" aria-label="Next">›</button>
+    </div>
+  }
+</section>

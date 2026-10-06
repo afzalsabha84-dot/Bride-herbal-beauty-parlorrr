@@ -1,0 +1,26 @@
+<section id="blog" class="section blog">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">Beauty journal</span>
+      <h2 class="section-title">Tips & <em>Guidance</em></h2>
+      <p class="section-sub">Honest beauty advice from 20 years behind the chair — straight from our artists.</p>
+    </div>
+
+    <div class="posts">
+      @for (p of site.posts; track p.title; let i = $index) {
+        <article class="post reveal" [class.reveal-d1]="i === 1" [class.reveal-d2]="i === 2">
+          <div class="post-art">
+            <img [src]="p.img" [alt]="p.title" loading="lazy">
+            <span class="post-cat">{{ p.category }}</span>
+          </div>
+          <div class="post-body">
+            <div class="post-meta">{{ p.date }} · {{ p.readTime }}</div>
+            <h3>{{ p.title }}</h3>
+            <p>{{ p.excerpt }}</p>
+            <a class="read" [href]="site.instagram" target="_blank" rel="noopener">Read more on Instagram →</a>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

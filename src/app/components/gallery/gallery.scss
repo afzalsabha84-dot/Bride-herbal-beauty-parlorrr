@@ -1,0 +1,57 @@
+.gallery { background: #fff; }
+
+.grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: 2.4rem;
+}
+.tile {
+  position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 3 / 3.6;
+  box-shadow: var(--shadow-sm); padding: 0; text-align: left;
+  img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  &:hover img { transform: scale(1.08); }
+  &::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(107, 66, 38, .55));
+    opacity: .85; transition: opacity .4s;
+  }
+}
+.cap {
+  position: absolute; left: 1rem; bottom: 1rem; z-index: 1; color: #fff;
+  font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic;
+}
+.zoom {
+  position: absolute; top: .9rem; right: .9rem; z-index: 1;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255, 255, 255, .9); color: var(--chocolate);
+  display: grid; place-items: center; font-size: 1rem;
+  opacity: 0; transform: scale(.7); transition: all .35s ease;
+}
+.tile:hover .zoom { opacity: 1; transform: scale(1); }
+
+/* lightbox */
+.lb {
+  position: fixed; inset: 0; z-index: 950; background: rgba(43, 26, 16, .92);
+  display: grid; place-items: center; padding: 1.5rem;
+  animation: lbIn .3s ease;
+  figure { max-width: min(860px, 92vw); text-align: center;
+    img { max-height: 76vh; width: auto; max-width: 100%; margin-inline: auto; border-radius: 16px; box-shadow: 0 30px 80px rgba(0,0,0,.4); }
+    figcaption { color: var(--cream); margin-top: 1rem; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; }
+  }
+}
+.lb-x {
+  position: absolute; top: 1.2rem; right: 1.4rem; color: #fff; font-size: 1.6rem;
+  width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.4);
+  &:hover { background: var(--rose-gold); border-color: var(--rose-gold); }
+}
+.lb-arrow {
+  position: absolute; top: 50%; translate: 0 -50%; color: #fff; font-size: 2.6rem;
+  width: 54px; height: 54px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.4);
+  display: grid; place-items: center; line-height: 1;
+  &:hover { background: var(--rose-gold); border-color: var(--rose-gold); }
+  &.left { left: 1.2rem; } &.right { right: 1.2rem; }
+}
+@keyframes lbIn { from { opacity: 0; } }
+
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .lb-arrow { &.left { left: .4rem; } &.right { right: .4rem; } width: 44px; height: 44px; font-size: 2rem; }
+}

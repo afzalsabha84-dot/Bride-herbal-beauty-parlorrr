@@ -1,0 +1,101 @@
+<section id="about" class="section about">
+  <div class="container about-grid">
+    <div class="about-visual reveal">
+      <div class="arch about-arch">
+        <img src="assets/gallery-interior.webp" alt="Inside Bride Herbal Beauty Perlor">
+      </div>
+      <div class="exp-badge"><strong>20+</strong><span>years of beauty care</span></div>
+    </div>
+
+    <div class="about-text">
+      <span class="eyebrow reveal">About us</span>
+      <h2 class="section-title reveal reveal-d1">Two decades of <em>makeovers</em></h2>
+      <p class="reveal reveal-d2">
+        For 20 years, Bride Herbal Beauty Perlor has been the neighbourhood's trusted
+        destination for complete transformations. What began as a small herbal-care studio
+        is today known for stunning bridal makeovers — makeup, mehndi, hair, facials,
+        waxing and threading, all under one roof.
+      </p>
+      <p class="reveal reveal-d2">
+        Our artists don't just do services — they craft looks. From a bride's big day to
+        your everyday glow-up, every appointment gets the same honest craftsmanship,
+        hygiene and herbal care we have stood for since day one.
+      </p>
+      <ul class="points reveal reveal-d2">
+        @for (p of points; track p) {
+          <li>
+            <span class="tick">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+            </span>
+            {{ p }}
+          </li>
+        }
+      </ul>
+      <div class="stats reveal reveal-d3">
+        @for (s of stats; track s.label) {
+          <div class="stat"><strong>{{ s.value }}</strong><span>{{ s.label }}</span></div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- awards -->
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">Recognition</span>
+      <h2 class="section-title">Awards & <em>Certificates</em></h2>
+    </div>
+    <div class="awards">
+      @for (a of site.awards; track a.title) {
+        <div class="award reveal">
+          <span class="medal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.8 13.5L7 21l5-2.4L17 21l-1.8-7.5"/></svg>
+          </span>
+          <strong>{{ a.title }}</strong>
+          <span>{{ a.org }} · {{ a.year }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- testimonials -->
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">Love notes</span>
+      <h2 class="section-title">What our <em>clients say</em></h2>
+    </div>
+    <div class="testis">
+      @for (t of allReviews(); track $index; let i = $index) {
+        <figure class="testi reveal" [class.reveal-d1]="i % 3 === 1" [class.reveal-d2]="i % 3 === 2">
+          <div class="stars">★★★★★</div>
+          <blockquote>"{{ t.text }}"</blockquote>
+          <figcaption><strong>{{ t.name }}</strong><span>{{ t.service }}</span></figcaption>
+        </figure>
+      }
+    </div>
+
+    <!-- feedback form -->
+    <div class="feedback reveal">
+      <h3>Share your experience</h3>
+      <p>Visited us recently? Leave a few words — your review appears here instantly.</p>
+      <form (ngSubmit)="submitFeedback()" novalidate>
+        <div class="grid-2">
+          <label class="field">
+            <span class="flabel">Your Name *</span>
+            <input [(ngModel)]="fbName" name="fbName" placeholder="Your name">
+          </label>
+          <label class="field">
+            <span class="flabel">Service Taken <em class="opt">(Optional)</em></span>
+            <input [(ngModel)]="fbService" name="fbService" placeholder="e.g. Gold Facial">
+          </label>
+        </div>
+        <label class="field">
+          <span class="flabel">Your Feedback *</span>
+          <textarea [(ngModel)]="fbText" name="fbText" rows="3" placeholder="How was your experience?"></textarea>
+        </label>
+        @if (fbDone()) { <p class="done">Thank you! Your review is now live below.</p> }
+        <button type="submit" class="btn btn-primary">Post Review</button>
+      </form>
+    </div>
+  </div>
+</section>

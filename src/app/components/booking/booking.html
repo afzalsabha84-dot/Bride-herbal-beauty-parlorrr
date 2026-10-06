@@ -1,0 +1,116 @@
+<section id="booking" class="section booking">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">Reserve your chair</span>
+      <h2 class="section-title">Appointment <em>Booking</em></h2>
+      <p class="section-sub">{{ site.hoursLong }}</p>
+    </div>
+
+    <form id="booking-form-top" class="book-card reveal" (ngSubmit)="submit()" novalidate>
+      <!-- step 1: details -->
+      <h3 class="step"><span>1</span> Your details</h3>
+      <div class="grid-2">
+        <label class="field">
+          <span class="flabel">Full Name *</span>
+          <input [(ngModel)]="name" name="name" placeholder="Your full name" autocomplete="name">
+        </label>
+        <label class="field">
+          <span class="flabel">Phone Number *</span>
+          <input [(ngModel)]="phone" name="phone" placeholder="+91 ..." inputmode="tel" autocomplete="tel">
+        </label>
+      </div>
+      <label class="field">
+        <span class="flabel">Email <em class="opt">(Optional)</em></span>
+        <input [(ngModel)]="email" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+      </label>
+
+      <!-- step 2: date & time -->
+      <h3 class="step"><span>2</span> Date & time</h3>
+      <label class="field">
+        <span class="flabel">Preferred Appointment Date *</span>
+        <input type="date" [(ngModel)]="date" name="date" [min]="minDate" (change)="onDateChange()">
+      </label>
+      @if (dateError()) { <p class="error">{{ dateError() }}</p> }
+
+      <div class="field">
+        <span class="flabel">Available Time (60 mins) *</span>
+        @if (!date) {
+          <p class="hint">Select a date to see available times.</p>
+        } @else if (!dateError()) {
+          <div class="slots">
+            @for (s of slots(); track s.value) {
+              <button type="button" class="slot" [class.sel]="time === s.value" (click)="time = s.value">
+                {{ s.label }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- step 3: services cart -->
+      <h3 class="step"><span>3</span> Your services</h3>
+      <div class="field">
+        @if (cart.count() === 0) {
+          <div class="cart-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h15l-1.5 8.5a1 1 0 0 1-1 .8H8.7a1 1 0 0 1-1-.8L5 4.5A1 1 0 0 0 4 3.7H2"/><circle cx="9.5" cy="20.5" r="1.3"/><circle cx="17" cy="20.5" r="1.3"/></svg>
+            <p>Your cart is empty.</p>
+            <a href="#services" class="btn btn-outline btn-sm">Browse Services</a>
+          </div>
+        } @else {
+          <ul class="cart-list">
+            @for (i of cart.cart(); track i.name) {
+              <li>
+                <span class="c-name">{{ i.name }}</span>
+                <span class="c-price">{{ money(i.price) }}</span>
+                <button type="button" class="c-remove" (click)="cart.remove(i.name)" aria-label="Remove {{ i.name }}">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+              </li>
+            }
+          </ul>
+          <div class="cart-total">
+            <span>Total</span>
+            <strong>{{ money(cart.total()) }}</strong>
+          </div>
+          <a href="#services" class="add-more">+ Add more services</a>
+        }
+      </div>
+
+      <!-- step 4: payment -->
+      <h3 class="step"><span>4</span> Payment option</h3>
+      <div class="pay-opts">
+        <label class="pay-opt" [class.sel]="payment === 'parlour'">
+          <input type="radio" name="payment" value="parlour" [(ngModel)]="payment">
+          <span class="pay-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18M7 15.5h4"/></svg>
+          </span>
+          <span class="pay-text"><strong>Pay at Perlor</strong><small>Cash or UPI when you visit</small></span>
+        </label>
+        <label class="pay-opt" [class.sel]="payment === 'online'">
+          <input type="radio" name="payment" value="online" [(ngModel)]="payment">
+          <span class="pay-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+          </span>
+          <span class="pay-text"><strong>Pay Online</strong><small>We will share a payment link on WhatsApp</small></span>
+        </label>
+      </div>
+      @if (payment === 'online') {
+  <div class="qr-pay">
+    <img src="assets/QR.png" alt="Scan to pay">
+    <p class="qr-title">Scan and Pay</p>
+    <p class="qr-note">Send Payment Screenshot On Whatsapp.</p>
+  </div>
+}
+
+
+      @if (formError()) { <p class="error">{{ formError() }}</p> }
+      @if (doneMsg()) { <p class="done">{{ doneMsg() }}</p> }
+
+      <button type="submit" class="btn btn-primary btn-big">
+        Confirm Booking on WhatsApp
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="secure-note">No advance needed — pay at the perlor or online, as you choose.</p>
+    </form>
+  </div>
+</section>
