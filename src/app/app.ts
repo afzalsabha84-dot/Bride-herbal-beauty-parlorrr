@@ -29,7 +29,7 @@ import { SITE } from './data/site';
 export class App implements AfterViewInit {
   protected readonly loading = signal(true);
   protected readonly waLink = `https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(
-    'Hello Bride Herbal Beauty Perlor! I would like to know more about your services.'
+    'Hello Bride Herbal Beauty parlour! I would like to know more about your services.'
   )}`;
 
   ngAfterViewInit(): void {

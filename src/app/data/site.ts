@@ -44,8 +44,8 @@ export interface Award {
 
 export const SITE = {
   brand: 'Bride Herbal',
-  tagline: 'Beauty Perlor',
-  fullName: 'Bride Herbal Beauty Perlor',
+  tagline: 'Beauty parlour',
+  fullName: 'Bride Herbal Beauty parlour',
 
   phoneDisplay: '+91 95591 70513',
   phoneIntl: '919559170513',
@@ -168,9 +168,9 @@ export const SITE = {
   gallery: [
     { src: 'assets/gallery-henna.webp', alt: 'Intricate bridal henna design on hands', label: 'Bridal Henna' },
     { src: 'assets/gallery-bridal.webp', alt: 'Bridal makeup look', label: 'Bridal Looks' },
-    { src: 'assets/gallery-interior.webp', alt: 'Bride Herbal Beauty Perlor interior', label: 'Our Perlor' },
+    { src: 'assets/gallery-interior.webp', alt: 'Bride Herbal Beauty parlour interior', label: 'Our parlour' },
     { src: 'assets/gallery-nails.webp', alt: 'Elegant nail art', label: 'Nail Art' },
-    { src: 'assets/gallery-5.jpg', alt: 'Salon interior', label: 'Our Perlor' },
+    { src: 'assets/gallery-5.jpg', alt: 'Salon interior', label: 'Our parlour' },
     { src: 'assets/gallery-6.jpg', alt: 'Makeup application', label: 'Makeup' },
     { src: 'assets/gallery-7.jpg', alt: 'Hair styling session', label: 'Hair Styling' },
     { src: 'assets/gallery-8.jpg', alt: 'Facial treatment in progress', label: 'Facials' },
@@ -183,7 +183,7 @@ export const SITE = {
 
 { src: 'assets/IMG_9527.JPG.jpeg', alt: 'Bride getting ready', label: 'Bridal Prep' },
 { src: 'assets/IMG_9528.JPG.jpeg', alt: 'Parlor work in progress', label: 'Our Work' },
-{ src: 'assets/IMG_9529.JPG.jpeg', alt: 'Beauty treatment session', label: 'Our Perlor' },
+{ src: 'assets/IMG_9529.JPG.jpeg', alt: 'Beauty treatment session', label: 'Our parlour' },
 { src: 'assets/IMG_9533.PNG', alt: 'Salon service showcase', label: 'Our Work' },
 { src: 'assets/IMG_9534.PNG', alt: 'Happy client moment', label: 'Client Diaries' },
 
@@ -220,7 +220,7 @@ export const SITE = {
 
   // TODO: asli award names/certificates client se leke yahan badal dena (dummy abhi)
   awards: [
-    { title: 'Best Beauty Perlor of the Year', org: 'City Beauty Awards', year: '2023' },
+    { title: 'Best Beauty parlour of the Year', org: 'City Beauty Awards', year: '2023' },
     { title: 'Excellence in Bridal Makeup', org: 'Glamour Beauty Awards', year: '2022' },
     { title: 'Trusted Skin Care Studio', org: 'Herbal Beauty Council', year: '2021' },
     { title: 'Customer Choice Award', org: 'Local Business Honors', year: '2020' },

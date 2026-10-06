@@ -88,7 +88,7 @@ export class BookingComponent {
       this.payment === 'online'
    ? 'Pay Online (via QR scan)'
 
-        : 'Pay at Perlor';
+        : 'Pay at parlour';
 
     const lines = [
       `Hello ${this.site.fullName}! I would like to book an appointment.`,
